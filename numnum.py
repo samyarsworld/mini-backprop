@@ -119,17 +119,3 @@ class Numnum:
         return other * self**-1
 
 
-a = Numnum(10)
-b = Numnum(15)
-d = Numnum(2)
-f = Numnum(3)
-
-c = a + b
-e = c * d
-g = f.tanh()
-
-g.grad = 1.0
-g.backward()
-
-print(g)
-
