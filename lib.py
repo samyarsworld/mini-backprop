@@ -1,5 +1,4 @@
 import math
-import torch
 class Numnum:
     def __init__(self, data, _children=(), _op=''):
         self.data = data

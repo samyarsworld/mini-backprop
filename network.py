@@ -1,5 +1,5 @@
 import random
-from numnum import Numnum
+from lib import Numnum
 
 class MLP:
     def __init__(self, n_inputs, layers):
@@ -11,6 +11,9 @@ class MLP:
             x = layer(x)
         return x
     
+    def parameters(self):
+        return [param for layer in self.layers for param in layer.parameters()]
+    
 
 class Layer:
     def __init__(self, n_input, n_output):
@@ -19,6 +22,9 @@ class Layer:
     def __call__(self, x):
         output = [n(x) for n in self.neurons]
         return output
+
+    def parameters(self):
+        return [param for neuron in self.neurons for param in neuron.parameters()]
         
 class Neuron:
     def __init__(self, n_input):
@@ -29,13 +35,6 @@ class Neuron:
         logits = sum(a * b for (a, b) in list(zip(self.weights, x))) + self.bias
         output = logits.tanh()
         return output
-
-
-
-n_inputs = 10
-layers = [4, 3, 2, 1]
-x = [2, 3, 4, 5, 6, 7, 8, 1, 2, 3]
-
-model = MLP(n_inputs, layers)
-
-print(model(x))
+    
+    def parameters(self):
+        return self.weights + [self.bias]
